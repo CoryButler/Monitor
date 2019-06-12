@@ -1,0 +1,12 @@
+{
+    "items": [
+        {
+            "name": "termimal",
+            "info": "There terminal is turned off."
+        },
+        {
+            "name": "power outlet",
+            "info": "Nothing is plugged into the power outlet."
+        }
+    ]
+}

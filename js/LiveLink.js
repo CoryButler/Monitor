@@ -1,26 +1,30 @@
 function LiveLink () {
-    let dir = "B\\tempuser\\login.txt"
+    let dir = "B:\\util\\login.txt";
     let dirDisplay = dir.substr(0, dir.lastIndexOf('\\')) + '...';
 
     let log = [];
     log.push("Automasoft LiveLink [v0.1.906.11]");
-    log.push("(c) 1984 Automasoft Corporation. All rights reserved.");
+    log.push("(c) 1982 Automasoft Corporation. All rights reserved.");
     log.push("");
-    log.push(dirDisplay);
-    log.push('run login.x');
+    log.push("     Automasoft: Dream Faster");
+    log.push("");
+    log.push("ALL Notice: No user profile detected at terminal.");
+    log.push("              For help, enter \"help\".");
+    log.push("");
+    log.push("");
     
     const _keyboard = new Keyboard();
     const _monitor = new Monitor(log);
     let _user = new User();
 
+
     const ParseInput = function (input)
     {
-        if (input.length > 1) {
-            log.push(_user.Commands().Execute(input));
+        if (input.length > 1 || input[0].toLowerCase() === "list" || input[0].toLowerCase() === "help" || input[0] === "?") {
+            log.push(_user.Commands().Execute(_monitor, input));
         }
         
         log.push("");
-        log.push(dirDisplay);
         log.push("");
         _monitor.UpdateLog(log);
     }
@@ -42,6 +46,8 @@ function LiveLink () {
             _monitor.UpdateLog(log, true);
         }
         else if (key === "Enter") {
+            log[log.length - 1] = lastLine;
+            _monitor.UpdateLog(log, true);
             ParseInput(lastLine.split(' '));
         }
         else if (_keyboard.IsValidKey(key)) {

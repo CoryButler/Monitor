@@ -1,0 +1,8 @@
+<root>
+    <mainText>
+    Welcome, new pilot!It's a pleasure to meet you.</mainText>
+    <item>
+        <name>bucket</name>
+        <info>The bucket is full of water.</info>
+    </item>
+</root>

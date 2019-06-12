@@ -1,6 +1,14 @@
 function Monitor (defaultLog) {
     const _canvas = document.getElementById('screen');
     const _context = _canvas.getContext('2d');
+
+    
+    const _gradient = _context.createRadialGradient(
+        _canvas.width / 2, _canvas.height / 2, _canvas.height / 10,
+        _canvas.width / 2, _canvas.height / 2, _canvas.height / 2);
+    _gradient.addColorStop(0, "#114411");
+    _gradient.addColorStop(1, "#002200");
+
     const _numColumns = 80;
     let log = defaultLog;
 
@@ -49,7 +57,7 @@ function Monitor (defaultLog) {
     }
 
     setInterval(() => {
-        _context.clearRect(0, 0, _canvas.width, _canvas.height);
+        ClearScreen();
         let lastLine = log[log.length - 1]
         if (lastLine[lastLine.length - 1] !== '_')
             log[log.length - 1] += '_';
@@ -64,8 +72,14 @@ function Monitor (defaultLog) {
     this.UpdateLog = function (newLog, immediate) {
         log = newLog;
         if (immediate) {
-            _context.clearRect(0, 0, _canvas.width, _canvas.height);
+            ClearScreen();
             DrawText(log, 20);
         }
     }
+
+    const ClearScreen = function() {
+        _context.fillStyle = _gradient;
+        _context.fillRect(0, 0, _canvas.width, _canvas.height);
+    }
+    ClearScreen();
 }
