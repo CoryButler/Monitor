@@ -1,57 +1,22 @@
-function Commands(user) {
-    const _user = user; 
-
-    this.Execute = function (monitor, input) {
-        let command = input[0].toLowerCase();
+function Commands() {
+    this.Execute = function (liveLink, input) {
+        if (input[0] === "?") input[0] = "help";
+        let command = "./js/commands/" + input[0].toLowerCase() + ".js";
         
-        switch (command)
-        {
-            case "help":
-                return Help();
-            case "?":
-                return Help();
-            case "list":
-                return List();
-            case "run":
-                return Run("./game/" + input[1]);
-        }
-    }    
-    
-    const FileExists = function(filePath) {
-        var json;
-        $.ajax({
-            url: filePath + "ml",
-            dateType: "xml",
-            async: false,
-            success: function(response)
-            {
-                json = $.xml2json(response);
-            },
-            error: function()
-            {
-                json = "Could not load " + filePath.substr(filePath.lastIndexOf("/") + 1);
-            }
+        loadScript(command, function() {
+            loadedFunction(liveLink, command, input[1] || "");
+        }, function() {
+            liveLink.Monitor().Log(liveLink.Monitor().Log() + "command not found: " + input[0] + "\n");
         });
-        return json;
     }
 
-    const List = function (directory) {
-        return "newUser.x";
-    }
-
-    const Run = function (filePath) {
-        return FileExists(filePath).mainText;
-    }
-
-    const GoTo = function (filePath) {
-
-    }
-
-    const Scan = function (filePath) {
-
-    }
-
-    const Help = function () {
-        return "Available commands: help, list, run";
+    const loadScript = function (url, callback, error) {
+        $.ajax({
+            url: url,
+            dataType: "script",
+            success: callback,
+            error: error,
+            async: false
+        });
     }
 }

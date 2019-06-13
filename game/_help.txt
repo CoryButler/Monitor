@@ -1,0 +1,12 @@
+┌──────────┐
+│ commands │
+└┬─────────┘
+ ├─ clear - clears all text from terminal
+ │
+ ├─ help/? - provides details on commands
+ │
+ ├─ link [id] - access controls to manomech based on id
+ │
+ ├─ read [filename] - displays content of .t file
+ │
+ └─ status - displays session details

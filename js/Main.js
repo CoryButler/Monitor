@@ -1,3 +1,2 @@
-$(document).ready(function () {
-    let liveLink = new LiveLink();
-});
+
+$(document).ready(function () { LiveLink(); });

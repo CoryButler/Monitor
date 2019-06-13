@@ -1,59 +1,40 @@
 function LiveLink () {
-    let dir = "B:\\util\\login.txt";
-    let dirDisplay = dir.substr(0, dir.lastIndexOf('\\')) + '...';
-
-    let log = [];
-    log.push("Automasoft LiveLink [v0.1.906.11]");
-    log.push("(c) 1982 Automasoft Corporation. All rights reserved.");
-    log.push("");
-    log.push("     Automasoft: Dream Faster");
-    log.push("");
-    log.push("ALL Notice: No user profile detected at terminal.");
-    log.push("              For help, enter \"help\".");
-    log.push("");
-    log.push("");
-    
+    const _this = this;    
     const _keyboard = new Keyboard();
-    const _monitor = new Monitor(log);
-    let _user = new User();
+    const _monitor = new Monitor();
+    const _user = new User();
 
+    this.Monitor = function () { return _monitor; }
+    this.User = function () { return _user; }
 
-    const ParseInput = function (input)
-    {
-        if (input.length > 1 || input[0].toLowerCase() === "list" || input[0].toLowerCase() === "help" || input[0] === "?") {
-            log.push(_user.Commands().Execute(_monitor, input));
-        }
-        
-        log.push("");
-        log.push("");
-        _monitor.UpdateLog(log);
+    const ParseInput = function (input) {
+        _user.Commands().Execute(_this, input);
     }
 
-    $(window).keyup(function(evt)
-	{
+    $(window).keyup( function(evt) {
         let key = evt.key;
 
-        let lastLine = log[log.length - 1];
+        let input = _monitor.Input();
         let hasInsertion = false;
-        if (lastLine[lastLine.length - 1] === '_') {
-            lastLine = lastLine.substr(0, lastLine.length - 1);
+        if (input[input.length - 1] === '_') {
+            input = input.substr(0, input.length - 1);
             hasInsertion = true;
         }
 
-        if (key === "Backspace" && lastLine.length > 0) {
-            lastLine = lastLine.substr(0, lastLine.length - 1);
-            log[log.length - 1] = lastLine + (hasInsertion ? '_' : '');
-            _monitor.UpdateLog(log, true);
+        if (key === "Backspace" && input.length > 2) {
+            input = input.substr(0, input.length - 1) + (hasInsertion ? '_' : '');
+            _monitor.Input(input);
         }
         else if (key === "Enter") {
-            log[log.length - 1] = lastLine;
-            _monitor.UpdateLog(log, true);
-            ParseInput(lastLine.split(' '));
+            _monitor.Log(_monitor.Log() + "\n" + input + "\n");
+            _monitor.Input("> ");
+            ParseInput(input.substr(2).split(' '));
         }
-        else if (_keyboard.IsValidKey(key)) {
-            lastLine += key;
-            log[log.length - 1] = lastLine + (hasInsertion ? '_' : '');
-            _monitor.UpdateLog(log, true);
+        else if (_keyboard.IsValidKey(key) && input.length < 80) {
+            input += key + (hasInsertion ? '_' : '');
+            _monitor.Input(input);
         }
     });
+
+    ParseInput(["_start"]);
 }

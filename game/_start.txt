@@ -1,0 +1,7 @@
+Automasoft LiveLink [v0.1.906.11]
+(c) 1982 Automasoft Corporation. All rights reserved.
+
+     Automasoft: Dream Faster
+	 
+     ALL Notice: No manomech profile detected at terminal33.
+                 For help, enter "help".
