@@ -1,6 +1,6 @@
-;(loadedFunction = function (liveLink, filePath, additional) {
+;(loadedFunction = function (liveLink, additional) {
     if (liveLink.User().Id.includes(".")) {
-        liveLink.Monitor().Log(liveLink.Monitor().Log() + "LiveLink in progress: terminal33.manomech_44\ntry command: unlink\n");
+        liveLink.Monitor().Log(liveLink.Monitor().Log() + "LiveLink in progress: terminal33.manomech_44\n");
         return;
     }    
 
@@ -11,5 +11,5 @@
         liveLink.User().Id += ".manomech_44";
     }
     else
-        liveLink.Monitor().Log(liveLink.Monitor().Log() + "manomech_" + id +" is not available\n");
+        liveLink.Monitor().Log(liveLink.Monitor().Log() + "manomech_" + id +" is not available\nmanomech id list:\n    44\n");
 }) ();

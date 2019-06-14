@@ -7,10 +7,6 @@ function LiveLink () {
     this.Monitor = function () { return _monitor; }
     this.User = function () { return _user; }
 
-    const ParseInput = function (input) {
-        _user.Commands().Execute(_this, input);
-    }
-
     $(window).keyup( function(evt) {
         let key = evt.key;
 
@@ -25,10 +21,10 @@ function LiveLink () {
             input = input.substr(0, input.length - 1) + (hasInsertion ? '_' : '');
             _monitor.Input(input);
         }
-        else if (key === "Enter") {
+        else if (key === "Enter" && input.trim() !== ">") {
             _monitor.Log(_monitor.Log() + "\n" + input + "\n");
             _monitor.Input("> ");
-            ParseInput(input.substr(2).split(' '));
+            Execute(input.substr(2).split(' '));
         }
         else if (_keyboard.IsValidKey(key) && input.length < 80) {
             input += key + (hasInsertion ? '_' : '');
@@ -36,5 +32,26 @@ function LiveLink () {
         }
     });
 
-    ParseInput(["_start"]);
+    const loadScript = function (url, callback, error) {
+        $.ajax({
+            url: url,
+            dataType: "script",
+            success: callback,
+            error: error,
+            async: false
+        });
+    }
+
+    const Execute = function (input) {
+        if (input[0] === "?") input[0] = "help";
+        let command = "./js/commands/" + input[0].toLowerCase() + ".js";
+        
+        loadScript(command, function() {
+            loadedFunction(_this, input[1] || "");
+        }, function() {
+            _monitor.Log(_monitor.Log() + "command not found: " + input[0] + "\n");
+        });
+    }
+    
+    Execute(["_start"]);
 }

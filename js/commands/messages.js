@@ -1,6 +1,6 @@
 ;(loadedFunction = function (liveLink, additional) {
     let request = new XMLHttpRequest();
-    request.open("GET", "./game/_help.txt", false);
+    request.open("GET", "./messages/_messageIds.txt", false);
     request.onreadystatechange = function ()
     {
         if(request.readyState === 4 && (request.status === 200 || request.status == 0))
@@ -8,6 +8,6 @@
     }
     try { request.send(null); }
     catch {
-        liveLink.Monitor().Log(liveLink.Monitor().Log() + "error: could not access help menu\n");
+        liveLink.Monitor().Log(liveLink.Monitor().Log() + "error: could not list message ids\n");
     }
 }) ();

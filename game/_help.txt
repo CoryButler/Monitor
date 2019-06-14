@@ -2,11 +2,9 @@
 │ commands │
 └┬─────────┘
  ├─ clear - clears all text from terminal
- │
  ├─ help/? - provides details on commands
- │
- ├─ link [id] - access controls to manomech based on id
- │
- ├─ read [filename] - displays content of .t file
- │
- └─ status - displays session details
+ ├─ link [id] - establish LiveLink to manomech based on id
+ ├─ messages - display list of message ids
+ ├─ read [id] - display message based on id
+ ├─ status - displays session details
+ └─ unlink - terminate LiveLink to manomech
