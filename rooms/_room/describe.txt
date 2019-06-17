@@ -1,2 +1,3 @@
-The room is too dark to describe.
-A ClingLock indicator flashes on the West wall.
+The room is very dark. Rays of light squeeze through the seal of a door.
+A ClingLock status indicator flashes on the West wall. The strobe pattern
+indicates a faulty seal. The lock is likely operational.

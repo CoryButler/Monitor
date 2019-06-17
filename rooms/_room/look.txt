@@ -1,16 +1,16 @@
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────┐
+│     ________________          │  Cling-Lock Control Panel 
+│   ,'               \\         │
+│  /      ________    \\        │  This panel allows for manual operation
+│ |    ,.//    ___\    \\       │  of the adjoined Click-Lock door and seal.
+│ |   (   )   ||   \    ',__    │
+│ |    '.'    ||    \      \\   │  Light indicator displays the lock status.
+│  \,        ,_'_____\      \\  │
+│    '.____.'     __         ', │  Typically, a Click-Lock control panel is
+│         \_____//  \        || │  mounted outside of the locking cell. Automa-
+│          |         |       || │  soft installs panel inside manomech cells as
+│          | [] [] [] ',    //  │  a quality assurance test.
+│          | _ _ _ _ _| '--''   │
+│          |__________|_|       │  Manomechs can interface with panel by means
+│                               │  of a near-field LiveLink.│  Cling-Lock Control Panel
+└───────────────────────────────┘

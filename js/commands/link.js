@@ -6,10 +6,15 @@
 
     let id = additional;
     if (id === "") id = "[noID]";
-    if (id === "44") {
-        liveLink.Monitor().Log(liveLink.Monitor().Log() + "LiveLink established: terminal33.manomech_44\n");
-        liveLink.User().Id += ".manomech_44";
+    if (liveLink.Manomechs.some(m => m.Id === id)) {
+        liveLink.Monitor().Log(liveLink.Monitor().Log() + "LiveLink established: terminal33.manomech_" + id + "\n");
+        liveLink.User().Id += ".manomech_" + id;
     }
-    else
-        liveLink.Monitor().Log(liveLink.Monitor().Log() + "manomech_" + id +" is not available\nmanomech id list:\n    44\n");
+    else {
+        let mIds = "";
+        liveLink.Manomechs.forEach(m => {
+            mIds += "    " + m.Id + "\n";
+        });
+        liveLink.Monitor().Log(liveLink.Monitor().Log() + "manomech_" + id +" is not available\nmanomech id list:\n" + mIds);
+    }
 }) ();

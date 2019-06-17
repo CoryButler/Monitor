@@ -4,6 +4,11 @@ function LiveLink () {
     const _monitor = new Monitor();
     const _user = new User();
 
+    this.Manomechs = [
+        new Manomech("44", "_room"),
+        new Manomech("52", "_room")
+    ];
+
     this.Monitor = function () { return _monitor; }
     this.User = function () { return _user; }
 
@@ -24,7 +29,7 @@ function LiveLink () {
         else if (key === "Enter" && input.trim() !== ">") {
             _monitor.Log(_monitor.Log() + "\n" + input + "\n");
             _monitor.Input("> ");
-            Execute(input.substr(2).split(' '));
+            Execute(input.substr(2).trim().split(' '));
         }
         else if (_keyboard.IsValidKey(key) && input.length < 80) {
             input += key + (hasInsertion ? '_' : '');

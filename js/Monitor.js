@@ -9,6 +9,15 @@ function Monitor () {
         _canvas.width / 2, _canvas.height / 2, _canvas.height / 2);
     _gradient.addColorStop(0, "#114411");
     _gradient.addColorStop(1, "#002200");
+    
+    const _glare = _context.createLinearGradient(
+        _canvas.width, 0, 0, _canvas.height);
+    _glare.addColorStop(0, "#ccffcc50");
+    _glare.addColorStop(0.25, "#ccffcc15");
+    _glare.addColorStop(0.5, "#ccffcc00");
+    _glare.addColorStop(0.75, "#ccffcc10");
+    _glare.addColorStop(1, "#ccffcc20");
+
     let _log = "";
     let _input = "> ";
 
@@ -19,7 +28,7 @@ function Monitor () {
     _context.font = "16px Consolas";//"22px 'VT323', monospace";
     _context.textBaseline = 'top';
     
-    const DrawToScreen = function (scroll) {
+    const DrawToScreen = function () {
         let lines = _log.split("\n");
 
         while (lines.length >= _lineLimit) { lines.splice(0, 1); }
@@ -30,28 +39,35 @@ function Monitor () {
         _context.fillStyle = "#00CC00";
         _context.filter = 'blur(4px)';
         for (let i = 0; i < lines.length; i++) {
-            _context.fillText(lines[i], 20, i * 20 + scroll);
+            _context.fillText(lines[i], 20, i * 20 + 20);
         }
 
         _context.filter = 'blur(2px)';
         for (let i = 0; i < lines.length; i++) {
-            _context.fillText(lines[i], 20, i * 20 + scroll);
+            _context.fillText(lines[i], 20, i * 20 + 20);
         } 
         
         _context.fillStyle = "#55FF55";
         _context.filter = 'none';
         for (let i = 0; i < lines.length; i++) {
-            _context.fillText(lines[i], 20, i * 20 + scroll);
+            _context.fillText(lines[i], 20, i * 20 + 20);
         }
+
+        AddGlare();
     }
 
     const UpdateScreen = function () {
         ClearScreen();
-        DrawToScreen(20);
+        DrawToScreen();
     }
 
-    const ClearScreen = function() {
+    const ClearScreen = function () {
         _context.fillStyle = _gradient;
+        _context.fillRect(0, 0, _canvas.width, _canvas.height);
+    }
+
+    const AddGlare = function () {
+        _context.fillStyle = _glare;
         _context.fillRect(0, 0, _canvas.width, _canvas.height);
     }
 
@@ -63,6 +79,6 @@ function Monitor () {
             _input += '_';
         else
             _input = _input.substr(0, _input.length - 1);
-        DrawToScreen(20);
+        DrawToScreen();
     }, 500);
 }
