@@ -1,0 +1,18 @@
+body {
+    text-align: center;
+    background-color: #446644
+}
+
+#screen {
+    position: absolute; 
+    margin: auto; 
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 8px solid #557755; 
+    border-right: 12px solid #668866; 
+    border-left: 12px solid #668866; 
+    border-bottom: 20px solid #779977; 
+    border-radius: 32px;
+}
