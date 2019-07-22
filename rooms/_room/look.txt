@@ -2,11 +2,11 @@
 │     ________________          │  Cling-Lock Control Panel 
 │   ,'               \\         │
 │  /      ________    \\        │  This panel allows for manual operation
-│ |    ,.//    ___\    \\       │  of the adjoined Click-Lock door and seal.
+│ |    ,.//    ___\    \\       │  of the adjoined Cling-Lock door and seal.
 │ |   (   )   ||   \    ',__    │
 │ |    '.'    ||    \      \\   │  Light indicator displays the lock status.
 │  \,        ,_'_____\      \\  │
-│    '.____.'     __         ', │  Typically, a Click-Lock control panel is
+│    '.____.'     __         ', │  Typically, a Cling-Lock control panel is
 │         \_____//  \        || │  mounted outside of the locking cell. Automa-
 │          |         |       || │  soft installs panel inside manomech cells as
 │          | [] [] [] ',    //  │  a quality assurance test.
