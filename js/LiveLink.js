@@ -4,6 +4,10 @@ function LiveLink () {
     const _monitor = new Monitor();
     const _user = new User();
 
+    let _commands = ["> "];
+    let _currentCommand = 0;
+    let _commandsLimit = 10;
+
     this.Manomechs = [
         new Manomech("44", "_room"),
         new Manomech("52", "_room")
@@ -11,8 +15,9 @@ function LiveLink () {
 
     this.Monitor = function () { return _monitor; }
     this.User = function () { return _user; }
+    this.Vars = { author: "Cory" };
 
-    $(window).keyup( function(evt) {
+    const handler = (evt) => {
         let key = evt.key;
 
         let input = _monitor.Input();
@@ -27,24 +32,42 @@ function LiveLink () {
             _monitor.Input(input);
         }
         else if (key === "Enter" && input.trim() !== ">") {
+            _commands.push(input);
+            if (_commands.length > _commandsLimit) _commands.splice(0, 1);
+            _currentCommand = _commands.length;
             _monitor.Log(_monitor.Log() + "\n" + input + "\n");
-            _monitor.Input("> ");
             Execute(input.substr(2).trim().split(' '));
+        }
+        else if (key === "ArrowUp") {
+            _currentCommand = _currentCommand - 1 >= 0 ? _currentCommand - 1 : 0;
+            input = _commands[_currentCommand] + (hasInsertion ? '_' : '');
+            _monitor.Input(input);
+        }
+        else if (key === "ArrowDown") {
+            _currentCommand = _currentCommand + 1 < _commands.length ? _currentCommand + 1 : _commands.length - 1;
+            input = _commands[_currentCommand] + (hasInsertion ? '_' : '');
+            _monitor.Input(input);
         }
         else if (_keyboard.IsValidKey(key) && input.length < 80) {
             input += key + (hasInsertion ? '_' : '');
             _monitor.Input(input);
         }
-    });
+    }
 
     const loadScript = function (url, callback, error) {
-        $.ajax({
-            url: url,
-            dataType: "script",
-            success: callback,
-            error: error,
-            async: false
-        });
+        var script = document.createElement('script');
+        script.onload = callback;
+        script.onerror = error;
+        script.src = url;
+        document.body.appendChild(script);
+
+        // $.ajax({
+        //     url: url,
+        //     dataType: "script",
+        //     success: callback,
+        //     error: error,
+        //     async: false
+        // });
     }
 
     const Execute = function (input) {
@@ -58,5 +81,7 @@ function LiveLink () {
         });
     }
     
+    // Constructor
+    document.addEventListener("keyup", handler);
     Execute(["_start"]);
 }

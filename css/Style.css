@@ -3,16 +3,26 @@ body {
     background-color: #446644
 }
 
-#screen {
-    position: absolute; 
-    margin: auto; 
-    top: 0;
-    bottom: 0;
+.screen {
+    position: absolute;
     left: 0;
-    right: 0;
-    border-top: 8px solid #557755; 
+    top: 0;
+    width: 800px;
+    height: 600px;
+}
+
+#screen {
+    margin: 0;
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-top: 10px solid #557755; 
     border-right: 12px solid #668866; 
     border-left: 12px solid #668866; 
-    border-bottom: 20px solid #779977; 
+    border-bottom: 14px solid #779977; 
     border-radius: 32px;
-}
+    overflow: hidden;
+ }

@@ -12,5 +12,5 @@
 │          | [] [] [] ',    //  │  a quality assurance test.
 │          | _ _ _ _ _| '--''   │
 │          |__________|_|       │  Manomechs can interface with panel by means
-│                               │  of a near-field LiveLink.│  Cling-Lock Control Panel
+│                               │  of a near-field LiveLink.
 └───────────────────────────────┘
