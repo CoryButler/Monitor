@@ -17,7 +17,7 @@ function LiveLink () {
     this.User = function () { return _user; }
     this.Vars = { author: "Cory" };
 
-    const handler = (evt) => {
+    const KeyUp = (evt) => {
         let key = evt.key;
 
         let input = _monitor.Input();
@@ -32,7 +32,7 @@ function LiveLink () {
             _monitor.Input(input);
         }
         else if (key === "Enter" && input.trim() !== ">") {
-            _commands.push(input);
+            if (input !== _commands[_commands.length - 1]) _commands.push(input);
             if (_commands.length > _commandsLimit) _commands.splice(0, 1);
             _currentCommand = _commands.length;
             _monitor.Log(_monitor.Log() + "\n" + input + "\n");
@@ -54,27 +54,19 @@ function LiveLink () {
         }
     }
 
-    const loadScript = function (url, callback, error) {
+    const LoadScript = function (url, callback, error) {
         var script = document.createElement('script');
-        script.onload = callback;
+        script.onload = () => { callback(); document.body.removeChild(script); };
         script.onerror = error;
         script.src = url;
         document.body.appendChild(script);
-
-        // $.ajax({
-        //     url: url,
-        //     dataType: "script",
-        //     success: callback,
-        //     error: error,
-        //     async: false
-        // });
     }
 
     const Execute = function (input) {
         if (input[0] === "?") input[0] = "help";
         let command = "./js/commands/" + input[0].toLowerCase() + ".js";
         
-        loadScript(command, function() {
+        LoadScript(command, function() {
             loadedFunction(_this, input[1] || "");
         }, function() {
             _monitor.Log(_monitor.Log() + "command not found: " + input[0] + "\n");
@@ -82,6 +74,6 @@ function LiveLink () {
     }
     
     // Constructor
-    document.addEventListener("keyup", handler);
+    document.addEventListener("keyup", KeyUp);
     Execute(["_start"]);
 }

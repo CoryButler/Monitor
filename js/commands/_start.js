@@ -15,8 +15,6 @@
             liveLink.Monitor().Log(liveLink.Monitor().Log() + "error: could not access startup.x\nstatus: terminal33 operational\nFor help, enter \"help\".\n");
         }
     }
-    try { request.send(null); }
-    catch {
-        liveLink.Monitor().Log(liveLink.Monitor().Log() + "error: could not access startup.x\nstatus: terminal33 operational\n");
-    }
+    request.send(null);
+    
 }) ();

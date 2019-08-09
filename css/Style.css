@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background-color: #446644
+    background-color: #929171
 }
 
 .screen {
@@ -19,10 +19,10 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border-top: 10px solid #557755; 
-    border-right: 12px solid #668866; 
-    border-left: 12px solid #668866; 
-    border-bottom: 14px solid #779977; 
+    border-top: 10px solid #5e5d48; 
+    border-right: 12px solid #79785b; 
+    border-left: 12px solid #79785b; 
+    border-bottom: 14px solid #b9b894; 
     border-radius: 32px;
     overflow: hidden;
  }

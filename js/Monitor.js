@@ -20,7 +20,6 @@ function Monitor () {
     _contextInput.textBaseline = 'top';
     
     const DrawOutput = function () {
-        console.log("O");
         let lines = _log.split("\n");
 
         while (lines.length >= _lineLimit) { lines.splice(0, 1); }
@@ -45,7 +44,6 @@ function Monitor () {
     }
 
     const DrawInput = function () {
-        console.log("I");
         let lines = _log.split("\n");
 
         while (lines.length >= _lineLimit) { lines.splice(0, 1); }
@@ -105,6 +103,4 @@ function Monitor () {
     _glare.addColorStop(1, "#ccffcc20");
     document.getElementById('glare').getContext('2d').fillStyle = _glare;
     document.getElementById('glare').getContext('2d').fillRect(0, 0, _canvasOutput.width, _canvasOutput.height);
-
-    //setTimeout(() => DrawOutput(), 1000);
 }
