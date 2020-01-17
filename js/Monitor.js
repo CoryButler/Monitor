@@ -1,25 +1,71 @@
-function Monitor () {
+export function Monitor () {
     const _canvasOutput = document.getElementById('output');
     const _contextOutput = _canvasOutput.getContext('2d');
     const _canvasInput = document.getElementById('input');
     const _contextInput = _canvasInput.getContext('2d');
     const _lineLimit = 28;
     const _numColumns = 80;
-
+    this.inputEnabled = false;
     let _log = "";
     let _input = "> ";
 
-    this.Log = function (l = null) { if (l !== null) { _log = l; UpdateOutput(); _input = "> "; UpdateInput();} else return _log; }
-    this.Input = function (i = null) { if (i !== null) { _input = i; UpdateInput(); } else return _input; }
-    this.DirDisplay = function () { return dirDisplay; }
+    this.log = (value = null, enableInputOnComplete = true) => {
+        if (value !== null) {
+            this.inputEnabled = false;
+            const lines = value.split("\n");
+            let toLog = "";
+            lines.forEach(line => {
+                const words = line.split(" ");
+                toLog += words[0];
+                let currLine = words[0];
+                for (let i = 1; i < words.length; i++) {
+                    if (currLine.length + words[i].length + 1 > _numColumns + 2) {
+                        toLog += "\n" + words[i];
+                        currLine = words[i];
+                    }
+                    else {
+                        currLine += " " + words[i];
+                        toLog += " " + words[i];
+                    }
+                }
+                toLog += "\n";
+            });
+            _log += "\n";
+            _input = "";
+            updateInput();
+            recurrPrint(toLog, enableInputOnComplete);
+        } 
+        else
+            return _log;
+    }
+
+    this.input = function (i = null) { if (i !== null) { _input = i; updateInput(); } else return _input; }
+    this.dirDisplay = function () { return dirDisplay; }
+    this.clear = () => { _log = ""; updateOutput(); this.inputEnabled = true; _input = "> "; updateInput(); }
 
     _contextOutput.font = "16px Consolas";
     _contextOutput.textBaseline = 'top';
 
     _contextInput.font = "16px Consolas";
     _contextInput.textBaseline = 'top';
+
+    const recurrPrint = (toLog, enableInputOnComplete = true) => {
+        let logs = toLog.split("\n");
+        let log = "";
+        while (log === "" && logs.length > 0) log = logs.shift();
+        if (log !== "") _log += `${log}\n`;
+        updateOutput();
+        if (logs.length > 0)
+            setTimeout(() => recurrPrint(logs.join("\n"), enableInputOnComplete), 50);
+        else if (enableInputOnComplete) {
+            this.inputEnabled = true;
+            _input = "> ";
+            updateInput();
+        }
+
+    }
     
-    const DrawOutput = function () {
+    const drawOutput = function () {
         let lines = _log.split("\n");
 
         while (lines.length >= _lineLimit) { lines.splice(0, 1); }
@@ -43,7 +89,7 @@ function Monitor () {
 
     }
 
-    const DrawInput = function () {
+    const drawInput = function () {
         let lines = _log.split("\n");
 
         while (lines.length >= _lineLimit) { lines.splice(0, 1); }
@@ -63,17 +109,17 @@ function Monitor () {
         _contextInput.fillText(lines[i], 20, i * 20 + 20);
     }
 
-    const UpdateOutput = function () {
-        Clear(_contextOutput);
-        DrawOutput();
+    const updateOutput = function () {
+        clear(_contextOutput);
+        drawOutput();
     }
 
-    const UpdateInput = function () {
-        Clear(_contextInput);
-        DrawInput();
+    const updateInput = function () {
+        clear(_contextInput);
+        drawInput();
     }
 
-    const Clear = function (context) {
+    const clear = function (context) {
         context.clearRect(0, 0, _canvasOutput.width, _canvasOutput.height);
     }
 
@@ -82,7 +128,7 @@ function Monitor () {
             _input += '_';
         else
             _input = _input.substr(0, _input.length - 1);
-        UpdateInput();
+        if (this.inputEnabled) updateInput();
     }, 500);
 
     // Constructor

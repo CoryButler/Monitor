@@ -2,9 +2,9 @@ Automasoft LiveLink [v0.1.906.11]
 (c) 1982 Automasoft Corporation. All rights reserved.
        _____
       /\    \       __________     _______________                    
-     ///\    \     /\    \    \   |    |          \                   
-     \///\    \   ///\    \    \  |    |\    ______\                  
-      \///\    \  \///\    \    \ |    |/\       \//                  
+     ///\    \     /\    \    \  /|    |          \                   
+     \///\    \   ///\    \    \//|    |\    ______\                  
+      \///\    \  \///\    \    \/|    |/\       \//                  
        \///\    \__\///\    \    \|    |//\    ___\__                 
         \///\           \    \         |///\          \               
          \///\___________\____\________|\///\__________\              
@@ -20,5 +20,5 @@ Automasoft LiveLink [v0.1.906.11]
                    \///           /    /    /,///     /    ///   /    
                     \/___________/____/____/  '/_____/____/\/___/ (tm)
 
-     ALL Notice: No manomech profile detected at terminal_33.
+     ALL Notice: No manomech profile detected at terminal33.
                  For help, enter "help".

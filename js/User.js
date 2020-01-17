@@ -1,7 +1,7 @@
-function User () {
-    this.Name = "";
-    this.Password = "";
-    this.Id = "terminal33";
-    this.Location = "44";
-    this.Room = "_room";
+export function User () {
+    this.name = "";
+    this.password = "";
+    this.id = "terminal33";
+    this.location = "44";
+    this.room = "_room";
 }
