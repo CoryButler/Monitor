@@ -16,12 +16,13 @@ export function Commands (game) {
 
     this.execute = (name, option = null) => {
         const tempList = [];
-        game.party().members.forEach(m => m.commands.forEach(c => tempList.push(c.name)));
+        console.log(game.party());
+        game.party().members.forEach(m => m.commands.forEach(c => tempList.push(c)));
         
         if (tempList.some(tl => tl.split(" ")[0] === name))
             this.list[name].run(option);
         else
-            game.monitor().log(`ERROR: Command "${name}" not found.\nEnter "help" for a list of available commands.`)
+            game.monitor().log(`ERROR: Command "${name}" not found.\nEnter "help" for a list of available commands.`);
     }
 
     this.getCommands = () => { return this.list; }
@@ -121,9 +122,9 @@ function Link (game) {
         }
         else {
             if (option === "") option = "[noID]";
-            if (game.characters().some(c => c.name === option)) {
+            if (game.characters.some(c => c.name === option)) {
                 let character;
-                game.characters().forEach(c => { if (c.name === option) character = c; });
+                game.characters.forEach(c => { if (c.name === option) character = c; });
                 game.party().addMember(character);
                 game.monitor().log(`LiveLink established: ${game.party().members[0].name}.${game.party().members[1].name}`);
             }

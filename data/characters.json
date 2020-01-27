@@ -1,0 +1,20 @@
+{
+    "characters": [
+        {
+            "name": "terminal33",
+            "location": "020.B",
+            "commands": [ "_start", "add", "clear", "help", "message", "status", "unlink" ],
+            "canLearn": [ "link" ]
+        },
+        {
+            "name": "manomech44",
+            "location": "013.A",
+            "commands": [ "look", "describe" ]
+        },
+        {
+            "name": "manomech53",
+            "location": "014.D",
+            "commands": [ "look", "describe" ]
+        }
+    ]
+}

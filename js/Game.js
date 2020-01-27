@@ -5,6 +5,7 @@ import { Commands } from "./Commands.js";
 import { Party } from "./Party.js";
 import { Character } from "./Character.js";
 import { Message } from "./Message.js";
+import { loadJSON } from "./json.js";
 
 export function Game () {
     const _keyboard = new Keyboard();
@@ -12,25 +13,12 @@ export function Game () {
     const _user = new User();
     const _commands = new Commands(this);
     const _party = new Party();
-    this.messages = [
-        new Message({ sender: "jreinhart@automasoft.ll", subject: "Restore Link Command", to: "qa@automasoft.ll", time: "112183:0622", body: "Some terminals on floor 020 are still experiencing the unlink issue. As of this morning, I have been told that two different terminals dropped the link and/or unlink command when not linked to a mech on start-up. If the link command is not activited at your terminal, enter \"add link terminal##\" using your terminal's id. The terminal id can be found by entering \"help\" or \"status\". Any other questions, see me.\n  Jeffery R. - LiveLink Technical Supervisor" }),
-        new Message({ sender: "tamos@automasoft.ll", subject: "Manullay Linking to a Manomech", to: "qa@automasoft.ll", time: "111883:1343", body: "QA Staff,\n  Reminder for Monday, as ALL enters phase 6 development, please be sure that manomech system diagnostics are to be run daily. Please turn in logs to me. Any logs marked \"urgent\" should be brought to Erin's attention (ll-message-service: eross@automasoft.ll, room: 007.B) emmediately.\n  Also, Jeff is aware of the ongoing unlink issue on floor 020. You do not need to notify him if no manomech is linked to your terminal when LiveLink starts up. Just go ahead and link to a mech yourself. To link to a manomech use the link command and pass the desired manomech's id (\"link manomech01\"). To get a list of available manomechs, just enter \"link\".\n  Thomas A. - QA Director" }),
-        new Message({ sender: "tamos@automasoft.ll", subject: "ALL Phase 5 Wrap-Up", to: "qa@automasoft.ll", time: "111483:1508", body: "QA Staff,\n  As you know, ALL phase 5 wraps on Wednesday. Edwards has decided to push up the phase 6 launch data to next Monday. Please begin compiling your test notes and system logs now so they can be turned in by EOB on Wednesday. Please drop off completed reports to me (010.A).\n  Thomas A. - QA Director" }),
-        new Message({ sender: "dsmith@automasoft.ll", subject: "re.re.906.11 Interface", to: "cwittman@automasoft.ll", time: "122082:0815", body: "Chelsea,\n  I know I complain about this with every update, but man does the interface stink. Now we've got to type out \"manomech\" every time we want to link? What was wrong with just passing the mech's id? What else would I possible want to link to? It's totally bogus. And right before Christmas too. Thanks a lot! By the way, are you going to the office party?\n  Domanic S. - QA Tester" }),
-        new Message({ sender: "dsmith@automasoft.ll", subject: "906.11 Interface", to: "cwittman@automasoft.ll", time: "122082:0815", body: "Chelsea,\n  I know I complain about this with every update, but man does the interface stink. Now we've got to type out \"manomech\" every time we want to link? What was wrong with just passing the mech's id? What else would I possible want to link to? It's totally bogus. And right before Christmas too. Thanks a lot! By the way, are you going to the office party?\n  Domanic S. - QA Tester" })
-    ];
-    let _characters = [
-        new Character({ name: "terminal33", location: "020.B", commands: [_commands.list._start, _commands.list.add, _commands.list.clear, _commands.list.help, _commands.list.message, _commands.list.status, _commands.list.unlink], canLearn: [_commands.list.link] }),
-        new Character({ name: "manomech44", location: "013.A", commands: [_commands.list.look, _commands.list.describe] }),
-        new Character({ name: "manomech53", location: "014.D", commands: [_commands.list.look, _commands.list.describe] })
-    ];
-    _party.addMember(_characters[0]);
-
+    this.messages = [];
+    this.characters = [];
     let _recentCommands = ["> "];
     let _currentCommand = 0;
     let _commandsLimit = 10;
 
-    this.characters = () => { return _characters; }
     this.party = () => { return _party; }
     this.monitor = function () { return _monitor; }
     this.user = function () { return _user; }
@@ -82,5 +70,6 @@ export function Game () {
     
     // Constructor
     document.addEventListener("keyup", keyUp);
-    execute(["_start"]);
+    loadJSON("messages", (data) => { data.messages.forEach(message => { this.messages.push(new Message(message)); }); });
+    loadJSON("characters", (data) => { data.characters.forEach(character => { this.characters.push(new Character(character)); }); _party.addMember(this.characters[0]); execute(["_start"]); });
 }

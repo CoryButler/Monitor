@@ -1,9 +1,15 @@
 export function Character (data) {
-    this.commands = data.commands || [];
+    this.commands = [];//data.commands || [];
     this.items = data.items || [];
     this.location = data.location || "???"
     this.name = data.name || "???";
     this.canLearn = data.canLearn || [];
+
+    if (data.commands) {
+        data.commands.forEach(c => {
+
+        });
+    }
 
     this.addCommand = (command) => {
         if (this.commands.indexOf(command) < 0)
